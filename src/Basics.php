@@ -52,6 +52,14 @@ class Basics
      */
     public static function getWordsToCount(string $str, int $wordsCountToRemain): string
     {
+        $wordsArray = explode(" ", $str);
+        if (count($wordsArray) > $wordsCountToRemain) {
+            $wordsArray = array_slice($wordsArray, 0, $wordsCountToRemain);
+        } elseif (count($wordsArray) < $wordsCountToRemain) {
+            $lastWord = end($wordsArray);
+            $wordsArray = array_pad($wordsArray, $wordsCountToRemain, $lastWord);
+        };
+        return implode(" ", $wordsArray);
     }
 
 }
