@@ -12,7 +12,7 @@
 > You can check working installation with `php -v` and `composer -v`.
 
 ## Get source and install dependencies
-
+<>
 ```shell
 # Clone or download the repository
 # move into project repository
