@@ -60,5 +60,17 @@ class ArraysAndLoops
      */
     public static function transformUsers(array $users): array
     {
+        $upperArray = array_map(function ($user) {
+            $user->setName(ucfirst($user->getName()));
+            if ($user->getAge() % 2 == 0) {
+                $newAge = ($user->getAge() / 2) + 2;
+                $user->setAge($newAge);
+            } else {
+                $newAge = $user->getAge() + 10;
+                $user->setAge($newAge);
+            };
+            return $user;
+        }, $users);
+        return $upperArray;
     }
 }
