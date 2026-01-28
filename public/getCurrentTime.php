@@ -1,5 +1,8 @@
 <?php
-// Calculate current time here
+function dateNow()
+{
+    echo date("Y-m-d H:i:s");
+}
 
 ?>
 
@@ -13,7 +16,6 @@
     <title>Current time</title>
 </head>
 <body>
-<!-- WRITE YOUR HTML AND PHP TEMPLATING HERE -->
-<!-- Display the time in the right format -->
+    <h1><?php dateNow() ?></h1>
 </body>
 </html>
