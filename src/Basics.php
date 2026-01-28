@@ -27,6 +27,7 @@ class Basics
      */
     public static function length(string $str): int
     {
+        return mb_strlen($str);
     }
 
     /**
