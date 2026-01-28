@@ -19,6 +19,7 @@ class Basics
      */
     public static function add(int $number1, int $number2): int
     {
+        return $number1 + $number2;
     }
 
     /**
