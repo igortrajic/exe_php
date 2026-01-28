@@ -31,6 +31,15 @@ class ArraysAndLoops
      */
     public static function countNumbers(array $array): array
     {
+        $counts = [];
+        foreach ($array as $value) {
+            if (isset($counts[$value])) {
+                $counts[$value]++;
+            } else {
+                $counts[$value] = 1;
+            }
+        };
+        return $counts;
     }
 
     /**
