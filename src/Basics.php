@@ -35,6 +35,7 @@ class Basics
      */
     public static function condition(string $str): bool
     {
+        return mb_strlen($str) > 10;
     }
 
     /**
