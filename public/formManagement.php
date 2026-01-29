@@ -1,5 +1,7 @@
 <?php
-
+$name = $_POST['name'] ?? '';
+$age = $_POST['age'] ?? '';
+$isSubmitted = !empty($name) && !empty($age);
 /**
  * On this page, you should display a form with two fields, one for the Name and one for the Age.
  * The server should respond to the form submission by displaying the same page with the name and age in a h1 "Toto is 20 years old".
@@ -22,7 +24,29 @@
     <title>Form management</title>
 </head>
 <body>
+    <form method="POST"> <?php if ($isSubmitted): ?>
+        <h1>
+            <span style="<?php echo (strlen($name) > 6) ? 'color: red;' : '' ?>">
+                <?php echo $name ?>
+            </span> 
+            is <?php echo $age ?> years old
+        </h1>
+        <?php if ($age > 18): ?>
+        <ul>
+        <?php for ($i = 1; $i <= $age; $i++): ?>
+        <li><?php echo $i; ?></li>
+        <?php endfor; ?>
+        </ul>
+        <?php endif; ?>
+    <?php else: ?>
+        <h1>Submit the form</h1>
+    <?php endif; ?>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" value="<?= $name ?>">
+    <label for="age">Age:</label>
+    <input type="text" id="age" name="age" value="<?= $age ?>">
+    <button type="submit">Submit</button>
 
-<!-- WRITE YOUR HTML AND PHP TEMPLATING HERE -->
+    </form>
 </body>
 </html>
