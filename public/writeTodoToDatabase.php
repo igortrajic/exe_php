@@ -1,5 +1,21 @@
 <?php
+$title = filter_input(INPUT_POST, 'name');
+$date = filter_input(INPUT_POST, 'date');
+$pdo = new PDO("sqlite:../database.db");
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (strlen($title) > 5 && !empty($date)) {
+        $sql = $pdo->prepare("INSERT INTO todos (title , due_date ) VALUES (:title, :due_date)");
+        $sql->execute([
+            ':title' => $title,
+            ':due_date' => $date
+        ]);
+        header("Location: displayAllTodosFromDatabase.php");
+        exit();
+    } else {
+        $error = "invalid title or date";
+    }
+}
 /**
  * On this page, you will create a simple form that allows user to create todos (with a name and a date).
  * The form should be submitted to this PHP page.
@@ -23,9 +39,19 @@
 </head>
 <body>
 
-<h1>
-    Create a new todo
-</h1>
+<form method="POST">
+    <?php if (isset($error)): ?>
+        <p style="color: red;"><?= $error ?></p>
+    <?php endif; ?>
+
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="name" value="<?= htmlspecialchars($title ?? '') ?>">
+    
+    <label for="due_date">Date:</label>
+    <input type="date" id="due_date" name="date" value="<?= htmlspecialchars($date ?? '') ?>">
+    
+    <button type="submit">Submit</button>
+</form>
 <!-- WRITE YOUR HTML AND PHP TEMPLATING HERE -->
 </body>
 </html>

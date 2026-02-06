@@ -1,4 +1,22 @@
 <?php
+$pdo = new PDO("sqlite:../database.db");
+$sort = filter_input(INPUT_GET, 'sort');
+if ($sort === 'date') {
+    $sql = "SELECT * FROM todos ORDER BY due_date";
+} elseif ($sort === 'title') {
+    $sql = "SELECT * FROM todos ORDER BY title";
+} else {
+    $sql = "SELECT * FROM todos";
+}
+
+$sql = $pdo->query($sql);
+
+if ($sql) {
+    $todos = $sql->fetchAll();
+} else {
+    $todos = [];
+    $error = "Failed to retrieve todos.";
+}
 
 /**
  * Get the todos from the sqlite database, and display them in a list.
@@ -27,9 +45,25 @@
     All todos
 </h1>
 
+<p>
+    Sort by: 
+    <a href="displayAllTodosFromDatabase.php?sort=date">Date</a> | 
+    <a href="displayAllTodosFromDatabase.php?sort=title">Title</a>
+</p>
+
 <a href="writeTodoToDatabase.php">Ajouter une nouvelle todo</a>
 
-<!-- WRITE YOUR HTML AND PHP TEMPLATING HERE -->
+<?php if (isset($error)): ?>
+    <p style="color: red;"><?= $error ?></p>
+<?php endif; ?>
 
+<ul>   
+    <?php foreach ($todos as $todo): ?>
+    <li> 
+        <?= htmlspecialchars($todo['title']) ?> (<?= date("m/d/Y", strtotime($todo['due_date'])) ?>)
+    </li>
+    <?php endforeach; ?>
+</ul>
+<!-- WRITE YOUR HTML AND PHP TEMPLATING HERE -->
 </body>
 </html>
