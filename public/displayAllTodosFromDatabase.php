@@ -61,6 +61,10 @@ if ($sql) {
     <?php foreach ($todos as $todo): ?>
     <li> 
         <?= htmlspecialchars($todo['title']) ?> (<?= date("m/d/Y", strtotime($todo['due_date'])) ?>)
+        <form action="deleteTodoFromDatabase.php?sort=<?= htmlspecialchars($sort ?? '') ?>" method="POST" style="display:inline;">
+            <input type="hidden" name="id" value="<?= $todo['id'] ?>">
+            <button type="submit">Delete</button>
+        </form>
     </li>
     <?php endforeach; ?>
 </ul>
